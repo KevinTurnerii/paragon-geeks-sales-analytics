@@ -1,0 +1,15 @@
+price_tier,price_tier_name,transactions,revenue,avg_ticket
+Refund / Adjustment,Refunds & Corrections,8,-1280.0,-160.0
+$0–25,Low-Volume Accessories / One-Offs,138,2377.99,17.231811594202895
+$25–50,Diagnostics & Minor Services,112,3621.25,32.332589285714285
+$50–75,Entry-Level Repair,136,7833.29,57.59772058823529
+$75–100,Standard Repair (Low),187,15607.43,83.46219251336899
+$100–125,Standard Repair,456,50411.64,110.55184210526316
+$125–150,Standard Repair (High),230,30733.69,133.6247391304348
+$150–175,Advanced Repair,215,33611.53,156.3326976744186
+$175–200,Advanced Repair (High),61,11198.46,183.58131147540982
+$200–250,Premium Repair,196,41795.0,213.23979591836735
+$250–300,High-End Repair,71,18893.0,266.09859154929575
+$300–400,Computer / Complex Repair,84,27859.82,331.6645238095238
+$400–500,Major Repair,13,5711.0,439.3076923076923
+$500+,Exceptional / Outlier Jobs,15,14545.0,969.6666666666666
