@@ -1,41 +1,76 @@
+
+ 
 # Paragon Geeks — Transaction-Level Sales & Operations Analytics
 
-## Project Overview
-
-This project delivers an end-to-end, transaction-level analytics pipeline built on Square POS data for Paragon Geeks, a multi-location electronics repair and retail business. The objective was to transform raw, inconsistent point-of-sale exports into audit-safe operational insights that support executive decision-making.
-
-The final output includes a fully documented analytics notebook, normalized fact and dimension tables, and an executive-ready Power BI dashboard designed for business stakeholders.
+> **TL;DR:** End-to-end transaction-level analytics project using real Square POS data.  
+> Built an audit-safe **Python → Power BI** pipeline to analyze documentation coverage, repair mix, pricing tiers, and operational performance for a multi-location electronics repair & retail business.
 
 ---
 
+## Project Overview
+
+This project delivers an end-to-end, transaction-level analytics pipeline built on **Square POS data** for Paragon Geeks, a multi-location electronics repair and retail business.
+
+The objective was to transform raw, inconsistent point-of-sale exports into **audit-safe operational insights** that support executive decision-making, while preserving real-world data complexity.
+
+The final output includes:
+- A fully documented analytics notebook  
+- Normalized, locked fact and dimension tables  
+- An executive-ready **Power BI dashboard** designed for business stakeholders  
+
+---
+
+## Table of Contents
+
+- [Business Problem](#business-problem)
+- [Data Source](#data-source)
+- [Methodology](#methodology)
+- [Key Insights](#key-insights)
+- [Power BI Dashboard Preview](#dashboard-preview)
+- [Data Pipeline Overview](#data-pipeline-overview)
+- [Repository Structure](#repository-structure)
+- [How to Reproduce This Analysis](#how-to-reproduce-this-analysis)
+
 ## Business Problem
 
-Like many service-based retail businesses, Paragon Geeks faced challenges with:
-- Inconsistent transaction documentation
-- Free-text service descriptions
-- Limited visibility into repair mix, pricing tiers, and operational timing
-- Difficulty linking revenue performance to documentation quality
+Like many service-based retail businesses, Paragon Geeks faced operational and analytical challenges caused by inconsistent point-of-sale documentation and unstructured transaction data.
 
-This project addresses those issues by enforcing transaction-level consistency while preserving real-world data complexity.
+Key challenges included:
+- Inconsistent transaction documentation across locations and employees
+- Heavy reliance on free-text service descriptions
+- Limited visibility into repair mix, pricing tiers, and operational timing
+- Inability to reliably link revenue performance to documentation quality
+
+These issues made it difficult to answer basic executive questions such as:
+- What services truly drive revenue?
+- Where is undocumented revenue concentrated?
+- How does pricing relate to documentation discipline?
+- When do peak operational windows occur?
+
+This project addresses those challenges by enforcing transaction-level consistency while preserving real-world data complexity.
 
 ---
 
 ## Data Source
 
-- Square POS exports (2024–2025)
-- ~1,900 total transactions
-- Combination of structured fields and unstructured free-text notes
-- Includes both documented and undocumented transactions
+- Square POS exports from **2024 and 2025**
+- Approximately **1,900 total transactions**
+- Combination of structured fields (prices, timestamps, items) and unstructured free-text notes
+- Includes both **documented** and **undocumented** transactions
+
+Raw exports are preserved without modification to maintain audit traceability.
 
 ---
 
 ## Methodology
 
-The analytics pipeline follows a strict, audit-safe approach:
+The analytics pipeline follows a strict, audit-safe methodology designed to prevent silent recomputation and metric drift.
 
-- Data ingestion and normalization across multiple Square export formats
-- Separation of documented vs. undocumented transactions
-- Token-based parsing of free-text fields to extract:
+Key methodological steps include:
+- Ingestion and normalization of multiple Square export formats
+- Enforcement of transaction grain (**1 row = 1 transaction**)
+- Explicit separation of documented vs undocumented transactions
+- Token-based parsing of free-text descriptions to extract:
   - Repair vs retail classification
   - Device type, brand, and model
   - Service categories and complexity indicators
@@ -43,234 +78,54 @@ The analytics pipeline follows a strict, audit-safe approach:
 - Validation of all aggregates against known revenue totals
 - Export of clean, Power BI–ready datasets
 
-
-All presentation tables and Power BI visuals are generated exclusively from locked, validated outputs to prevent metric drift or silent recomputation.
-No manual overrides were applied to final metrics.
-
----
+All presentation tables and Power BI visuals are generated exclusively from validated, locked outputs.  
+No manual overrides or Power BI-side transformations are applied.
 
 ## Key Insights
 
+This analysis produced clear, executive-level insights by enforcing transaction-level consistency across all Square POS data.
+
+### Revenue & Documentation Coverage
 - **$262,919.10** in total revenue analyzed across **1,922 transactions**
-- **59.1% of revenue** is fully documented (**$155,265.60**), while **40.9% remains undocumented**
-- Screen repairs dominate documented revenue, accounting for **$106K+** across **600+ transactions**
-- Higher-priced repairs (>$200) show significantly stronger documentation rates than low-ticket transactions
-- Peak operational window occurs between **11 AM and 3 PM**, capturing the highest transaction volume and revenue
-- Accessory bundles attached to repairs outperform standalone accessory sales by over **4× in revenue**
+- **59.1% of revenue** is fully documented (**$155,265.60**)
+- **40.9% of revenue** (**$107,653.50**) remains undocumented
+- Documentation gaps represent a material reporting and audit risk
 
----
+### Repair & Service Mix
+- **Screen repairs dominate operations**, accounting for over **$106K** in documented revenue across **600+ transactions**
+- A small number of repair categories (Screen, Back Glass, Battery) generate the majority of operational revenue
+- Multi-repair and bundled service transactions carry higher average ticket values
 
-## Power BI Dashboard Overview
-
-The Power BI dashboard is structured across five focused pages:
-
-1. **Executive Revenue Overview**  
-   High-level revenue, documentation coverage, and price-tier distribution.
-
-2. **Documentation Coverage & Quality**  
-   Breakdown of documented vs undocumented transactions by price tier.
-
-3. **Documented Operations Breakdown**  
-   Repair and service mix by category, device type, brand, and model.
-
-4. **Retail & Accessory Performance**  
-   Accessory-only sales versus bundled retail activity.
-
-5. **Operational Performance & Timing**  
-   Hourly, daily, and monthly transaction patterns.
-
-Pages are intentionally designed with minimal slicing to preserve audit integrity.
-
----
-
-## Repository Structure
-
-```text
-paragon-geeks-sales-analytics/
-│
-├── data/
-│   ├── raw/                 # Original Square POS exports (not modified)
-│   └── processed/           # Audit-safe, analysis-ready CSV outputs
-│
-├── notebooks/               # Data cleaning, classification, and analysis pipeline
-│
-├── powerbi/                 # Power BI dashboard (.pbix) using processed data only
-│
-├── images/                  # Exported charts & screenshots for documentation
-│
-└── README.md                # Project overview and findings
-```
-
-## Data Pipeline Overview
-
-This project follows a strict, audit-safe analytics pipeline to ensure reproducibility and metric integrity.
-
-1. **Raw Data Ingestion**
-   - Square POS exports from 2024 and 2025 are ingested without modification.
-   - Raw files are preserved in the `data/raw` directory for traceability.
-
-2. **Data Cleaning & Normalization**
-   - Transaction-level data is standardized across years.
-   - Revenue fields are normalized, refunds handled explicitly, and transaction grain is enforced (1 row = 1 transaction).
-
-3. **Text Parsing & Classification**
-   - Free-text transaction descriptions are parsed using a token-based approach.
-   - Repairs, services, accessories, and retail activity are classified without hardcoding assumptions.
-   - Multi-repair, partial payments, and bundled transactions are explicitly flagged.
-
-4. **Documentation Coverage Analysis**
-   - Transactions are categorized as **Documented** or **Undocumented** based on description quality.
-   - Coverage is analyzed across revenue, transaction counts, and price tiers.
-
-5. **Locked Outputs**
-   - All finalized datasets are exported to `data/processed`.
-   - These CSVs are treated as immutable and serve as the sole data source for Power BI.
-
-This structure prevents silent recomputation, double counting, or metric drift between analysis and visualization layers.
-
-## Power BI Dashboard Overview
-
-The Power BI dashboard is built **exclusively from the processed datasets** located in `data/processed`.  
-No transformations, filters, or calculations are performed in Power Query to preserve audit integrity.
-
-### Dashboard Pages
-
-**1. Executive Overview**
-- Total Revenue (All Transactions)
-- Documented vs Undocumented Revenue Share
-- Documentation Coverage %
-- High-level KPI tiles for quick decision-making
-
-**2. Repair & Service Mix**
-- Revenue and transaction volume by `bucket_final`
-- Identifies dominant repair categories (e.g., Screen, Back Glass, Battery)
-- Highlights operational revenue drivers
-
-**3. Device & Brand Performance**
-- Revenue and volume by device type (Phone, Tablet, Computer, etc.)
-- Brand-level performance (Apple, Samsung, Google, etc.)
-- Top device models by revenue and average ticket size
-
-**4. Pricing & Documentation Analysis**
-- Price tier distribution across all transactions
-- Documentation rate by price tier
-- Identifies where undocumented revenue is most concentrated
-
-**5. Time-Based Performance**
-- Monthly revenue and transaction trends (audit-safe)
-- Day-of-week performance
-- Hourly revenue and transaction patterns
-
-### Design Principles
-- One fact table driving all visuals
-- Measures calculated in DAX only
-- No hidden filters or silent exclusions
-- Totals reconcile exactly to notebook outputs
-
-## Key Findings & Business Insights
-
-### Revenue Concentration
-- **Screen repairs dominate operations**, accounting for the highest transaction volume and revenue among all repair categories.
-- A small number of repair types (Screen, Back Glass, Battery) generate the majority of documented revenue, indicating clear operational focus areas.
-
-### Documentation Gap
-- Only **59.1% of total revenue is documented**, leaving **$107K+** in undocumented transactions.
-- Undocumented revenue is disproportionately concentrated in **mid-to-high price tiers**, representing elevated audit and reporting risk.
-- Higher-priced jobs show stronger documentation discipline, but gaps remain below the $150 range.
-
-### Pricing Structure
-- The **$100–$250 price tiers** represent the core revenue engine of the business.
-- Extremely high-ticket jobs ($500+) are rare but materially impactful, requiring special handling and documentation controls.
-
-### Device & Brand Performance
-- **Phones drive the business**, followed by tablets and computers.
-- **Apple devices generate the majority of revenue**, followed by Samsung.
-- Certain models (e.g., flagship iPhones and premium Android devices) deliver higher average ticket sizes, justifying targeted inventory and staffing strategies.
+### Pricing & Documentation Behavior
+- Higher-priced repairs (**>$200**) show significantly stronger documentation discipline
+- Undocumented revenue is disproportionately concentrated in **mid-price tiers**
+- Improving documentation in the $100–$200 range would materially increase data quality without changing volume
 
 ### Operational Timing
-- Peak revenue occurs during **midday to early evening hours**, aligning with staffing optimization opportunities.
-- Monthly trends show consistent growth into mid–late 2025, validating demand stability.
+- Peak operational window occurs between **11:00 AM and 3:00 PM**
+- Midday hours capture the highest transaction volume and revenue
+- Time-based patterns present opportunities for staffing and scheduling optimization
 
-### Strategic Implications
-- Improving documentation coverage in mid-priced repairs could materially increase financial transparency without changing volume.
-- Operational focus should prioritize:
-  - High-volume phone repairs
-  - Apple and Samsung inventory readiness
-  - Midday staffing optimization
+### Retail & Accessory Performance
+- **Accessory bundles attached to repairs outperform standalone accessory sales by over 4× in revenue**
+- Bundled retail activity significantly increases average ticket size
+- Standalone accessory sales contribute limited revenue relative to repair-attached sales
 
-## Metrics & KPI Definitions
+These insights are derived exclusively from audit-safe, processed datasets and reconcile exactly to validated notebook outputs.
 
-This project uses clearly defined, audit-safe metrics to ensure consistency between analysis, reporting, and visualization layers.
+## Power BI Dashboard Preview
 
-### Core Revenue Metrics
-- **Transactions**  
-  Count of unique Square POS transactions. Each transaction represents one completed customer interaction.
+The Power BI dashboard was built as the final presentation layer for this project and connects **exclusively** to audit-safe datasets generated by the Python notebook pipeline.
 
-- **Revenue (Net Sales)**  
-  Net sales after discounts and refunds, derived from Square POS exports and normalized into `net_sales_num`.
+No raw data is loaded into Power BI.  
+No Power Query transformations are applied.  
+All calculations are implemented using DAX measures to preserve metric integrity.
 
-- **Average Ticket**  
-  Calculated as total revenue divided by number of transactions within a group.
+### Dashboard Structure
 
-### Documentation Metrics
-- **Documented Transaction**  
-  A transaction with sufficient descriptive detail (notes, item descriptions, or tokens) to confidently classify device, brand, and repair/service type.
+The dashboard is organized into **five focused analytical pages**, each designed to answer a specific business question.
 
-- **Undocumented Transaction**  
-  A transaction lacking sufficient detail for reliable classification.
-
-- **Documentation Coverage (%)**  
-  Percentage of total revenue and transactions that are documented:
-
-
-
-### Repair & Service Classification
-- **bucket_final**  
-Final, mutually exclusive classification representing the primary repair or service performed (e.g., Screen Repair, Battery Repair, Diagnostic, Deposit).
-
-- **Multi-Repair Flag**  
-Identifies transactions involving more than one repair event.
-
-- **Accessory Bundles**  
-Accessory sales occurring alongside a repair transaction.
-
-### Device & Brand Metrics
-- **device_type_final**  
-Final classified device category (phone, tablet, computer, console, accessory, etc.).
-
-- **brand_final**  
-Standardized manufacturer classification derived from device and text tokens.
-
-- **device_model_exact_refined**  
-Refined device model extracted from transaction text and normalized for reporting.
-
-### Pricing Metrics
-- **Price Tier**  
-Transaction-level bucketing based on net sales value (e.g., $100–$125, $250–$300).
-
-- **Price Tier Name**  
-Human-readable label describing typical job complexity at each tier.
-
-### Time-Based Metrics
-- **Hour of Day**  
-Transaction hour derived from POS timestamps and normalized to a 12-hour format.
-
-- **Day of Week**  
-Weekday extracted from transaction date.
-
-- **Month**  
-Monthly aggregation used for trend analysis and seasonality inspection.
-
-### Audit & Integrity Controls
-- All KPIs are derived **only from processed CSVs** in the `data/processed/` directory.
-- Power BI dashboards reference **no raw data** and apply **no hidden filters**.
-- Row counts and revenue totals are validated against locked snapshot baselines.
-
-## Power BI Dashboard Overview
-
-The Power BI dashboard was built exclusively on audit-safe, processed datasets generated by the Python notebook pipeline. No raw data, manual edits, or Power BI–side transformations were used.
-
-The dashboard is structured into **five analytical pages**, each answering a distinct business question.
+---
 
 ### Page 1 — Executive Overview
 **Purpose:** High-level performance snapshot for leadership.
@@ -278,12 +133,12 @@ The dashboard is structured into **five analytical pages**, each answering a dis
 **Key visuals:**
 - Total Revenue (All Transactions)
 - Documented vs Undocumented Revenue Share
+- Documentation Coverage %
 - Average Ticket Size
-- Transaction Volume
 - Revenue Trend Over Time
 
-**Business Value:**  
-Provides immediate visibility into overall sales performance and highlights the documentation gap impacting analytical accuracy.
+**Business value:**  
+Provides immediate visibility into overall sales performance while clearly exposing the documentation gap affecting analytical accuracy.
 
 ---
 
@@ -291,12 +146,12 @@ Provides immediate visibility into overall sales performance and highlights the 
 **Purpose:** Understand what drives revenue operationally.
 
 **Key visuals:**
-- Revenue by Repair / Service Category
+- Revenue by Repair / Service Category (`bucket_final`)
 - Transaction Count by Repair Type
 - Accessory Bundles vs Standalone Accessories
 
-**Business Value:**  
-Identifies the most profitable repair types and surfaces opportunities to optimize pricing, staffing, and upsell strategies.
+**Business value:**  
+Identifies the most profitable repair categories and highlights opportunities to optimize pricing, staffing, and upsell strategies.
 
 ---
 
@@ -304,11 +159,11 @@ Identifies the most profitable repair types and surfaces opportunities to optimi
 **Purpose:** Analyze demand by device ecosystem.
 
 **Key visuals:**
-- Revenue by Device Type
-- Revenue by Brand
+- Revenue by Device Type (Phone, Tablet, Computer, etc.)
+- Revenue by Brand (Apple, Samsung, Google, etc.)
 - Top 25 Device Models by Revenue
 
-**Business Value:**  
+**Business value:**  
 Supports inventory planning, technician specialization, and targeted marketing based on high-demand devices.
 
 ---
@@ -321,8 +176,8 @@ Supports inventory planning, technician specialization, and targeted marketing b
 - Documented vs Undocumented Share by Price Tier
 - Average Ticket by Price Tier
 
-**Business Value:**  
-Reveals where high-value work lacks documentation and where operational discipline can significantly improve insight quality.
+**Business value:**  
+Reveals where high-value work lacks documentation and where improved operational discipline would significantly increase reporting reliability.
 
 ---
 
@@ -334,56 +189,96 @@ Reveals where high-value work lacks documentation and where operational discipli
 - Revenue by Day of Week
 - Monthly Revenue Trends
 
-**Business Value:**  
-Informs scheduling, labor allocation, and promotional timing based on actual transaction behavior.
+**Business value:**  
+Informs staffing allocation, scheduling decisions, and promotional timing based on actual transaction behavior.
 
-## Tools & Technologies Used
+---
 
-**Data Processing & Analysis**
-- Python (Pandas, NumPy)
-- Jupyter Notebook
-- Token-based text parsing and rule-based classification
-- Audit-safe aggregation and validation checks
+### Design Principles
+- One fact table drives all visuals
+- All metrics calculated using DAX
+- No hidden filters or silent exclusions
+- All totals reconcile exactly to notebook validation outputs
 
-**Business Intelligence & Visualization**
-- Power BI Desktop
-- Star-schema–friendly fact and dimension tables
-- DAX measures (no Power Query transformations)
 
-**Data Sources**
-- Square POS transaction exports (2024–2025)
-- Combined and normalized into a single transaction-level dataset
 
-**Version Control & Documentation**
-- Git & GitHub
-- Markdown documentation
-- Structured repository layout for reproducibility
- 
- 
- ## How to Reproduce This Analysis
+## Repository Structure & Data Pipeline Overview
 
-This project is designed to be fully reproducible and audit-safe. All results shown in the notebook and Power BI dashboard are derived exclusively from processed datasets generated by the notebook pipeline.
+This repository is organized to clearly separate raw data, processing logic, and presentation layers.  
+The structure enforces audit safety, reproducibility, and prevents metric drift between analysis and reporting.
 
-### 1. Clone the Repository
+### Repository Structure
 
-    git clone https://github.com/KevinTurneri/paragon-geeks-sales-analytics.git
-    cd paragon-geeks-sales-analytics
+```text
+paragon-geeks-sales-analytics/
+│
+├── data/
+│   ├── raw/                 # Original Square POS exports (never modified)
+│   └── processed/           # Locked, audit-safe CSV outputs used for reporting
+│
+├── notebooks/               # Python data cleaning, classification, and analysis pipeline
+│
+├── powerbi/                 # Executive Power BI dashboard (.pbix)
+│
+├── images/                  # Dashboard screenshots used in README documentation
+│
+└── README.md                # Project overview, methodology, and findings
+```
 
-### 2. Raw Data Placement
+## Data Pipeline Overview
+
+This project follows a strict, transaction-level analytics pipeline designed to ensure audit safety, reproducibility, and metric integrity from ingestion through visualization.
+
+### 1. Raw Data Ingestion
+- Square POS exports from 2024 and 2025 are ingested without modification.
+- Raw files are preserved in `data/raw/` for traceability and audit purposes.
+
+### 2. Data Cleaning & Normalization
+- Transaction-level data standardized across years.
+- Revenue fields normalized with refunds handled explicitly.
+- Transaction grain enforced: **1 row = 1 transaction**.
+
+### 3. Text Parsing & Classification
+- Token-based parsing of free-text transaction descriptions.
+- Repairs, services, accessories, and retail activity classified without hardcoding assumptions.
+- Device type, brand, and model extracted from transaction text.
+- Multi-repair, partial payments, and bundled transactions explicitly flagged.
+
+### 4. Documentation Coverage Analysis
+- Transactions categorized as **Documented** or **Undocumented** based on description quality.
+- Documentation coverage analyzed across revenue, transaction volume, and price tiers.
+
+### 5. Locked Outputs
+- Final datasets exported to `data/processed/`.
+- These CSVs are treated as immutable and serve as the **single source of truth** for Power BI.
+- No downstream recomputation, Power Query transformations, or manual overrides are permitted.
+
+
+## How to Reproduce This Analysis
+
+This project is designed to be fully reproducible and audit-safe.  
+All results shown in the notebook and Power BI dashboard are derived exclusively from processed datasets generated by the notebook pipeline.
+
+### Clone the Repository
+
+git clone https://github.com/KevinTurneri/paragon-geeks-sales-analytics.git  
+cd paragon-geeks-sales-analytics
+
+### Place Raw Data Files
 
 Place the original Square POS exports into the following directory:
 
-    data/raw/
-    ├── 2024 sales.csv
-    └── 2025 sales.csv
+data/raw/  
+├── 2024 sales.csv  
+└── 2025 sales.csv  
 
 Raw files are treated as immutable source data and are never modified directly.
 
-### 3. Run the Analysis Notebook
+### Run the Analysis Notebook
 
 Open the main notebook located at:
 
-    notebooks/paragon_geeks_transaction_level_analysis.ipynb
+notebooks/paragon_geeks_transaction_level_analysis.ipynb
 
 Run all cells top-to-bottom to:
 
@@ -395,43 +290,189 @@ Run all cells top-to-bottom to:
 - Validate all transaction counts and revenue totals  
 - Export audit-safe datasets to the data/processed directory  
 
-### 4. Processed Outputs
+### Generated Outputs
 
-After successful execution, the following files will be generated in:
+After execution, the following locked datasets are created:
 
-    data/processed/
+data/processed/  
+fact_repair_service.csv  
+dim_device_type.csv  
+dim_brand.csv  
+dim_model_top25.csv  
+kpi_accessory.csv  
+price_tier_totals.csv  
+documentation_share_by_price_tier.csv  
+hourly_performance.csv  
+dow_performance.csv  
+monthly_performance.csv  
 
-    fact_repair_service.csv
-    dim_device_type.csv
-    dim_brand.csv
-    dim_model_top25.csv
-    kpi_accessory.csv
-    price_tier_totals.csv
-    documentation_share_by_price_tier.csv
-    hourly_performance.csv
-    dow_performance.csv
-    monthly_performance.csv
+These files serve as the single source of truth for all reporting.
 
-These files are treated as locked outputs and serve as the single source of truth for all reporting.
-
-### 5. Open the Power BI Dashboard
+### Open the Power BI Dashboard
 
 Open the Power BI file located at:
 
-    powerbi/Paragon_Geeks_Executive_Dashboard.pbix
+powerbi/Paragon_Geeks_Executive_Dashboard.pbix
 
-The dashboard connects only to the processed CSV files in data/processed.
+- Dashboard connects only to data/processed  
+- No Power Query transformations  
+- All calculations performed using DAX  
+- No hidden filters or silent exclusions  
 
-No Power Query transformations, filters, or manual edits are applied.  
-All calculations are performed using DAX measures to preserve audit integrity.
-
-### Reproducibility & Integrity Notes
+### Reproducibility & Integrity Guarantees
 
 - Raw data is never altered  
-- All metrics reconcile exactly to notebook validation totals  
+- Metrics reconcile exactly to notebook validation totals  
 - Power BI uses processed data only  
-- No silent recomputation or hidden filters exist  
-- Results are fully traceable from raw data to final dashboard  
+- No silent recomputation or metric drift  
+- Full traceability from raw data to final dashboard
+
+## How to Reproduce This Analysis
+
+This project is designed to be fully reproducible and audit-safe.  
+All results shown in the notebook and Power BI dashboard are derived exclusively from processed datasets generated by the notebook pipeline.
+
+### Clone the Repository
+
+git clone https://github.com/KevinTurneri/paragon-geeks-sales-analytics.git  
+cd paragon-geeks-sales-analytics
+
+### Place Raw Data Files
+
+Place the original Square POS exports into the following directory:
+
+data/raw/  
+├── 2024 sales.csv  
+└── 2025 sales.csv  
+
+Raw files are treated as immutable source data and are never modified directly.
+
+### Run the Analysis Notebook
+
+Open the main notebook located at:
+
+notebooks/paragon_geeks_transaction_level_analysis.ipynb
+
+Run all cells top-to-bottom to:
+
+- Normalize transaction-level data across years  
+- Enforce transaction grain (1 row = 1 transaction)  
+- Parse free-text descriptions using token-based classification  
+- Classify repairs, services, accessories, and retail activity  
+- Apply documentation coverage flags  
+- Validate all transaction counts and revenue totals  
+- Export audit-safe datasets to the data/processed directory  
+
+### Generated Outputs
+
+After execution, the following locked datasets are created:
+
+data/processed/  
+fact_repair_service.csv  
+dim_device_type.csv  
+dim_brand.csv  
+dim_model_top25.csv  
+kpi_accessory.csv  
+price_tier_totals.csv  
+documentation_share_by_price_tier.csv  
+hourly_performance.csv  
+dow_performance.csv  
+monthly_performance.csv  
+
+These files serve as the single source of truth for all reporting.
+
+### Open the Power BI Dashboard
+
+Open the Power BI file located at:
+
+powerbi/Paragon_Geeks_Executive_Dashboard.pbix
+
+- Dashboard connects only to data/processed  
+- No Power Query transformations  
+- All calculations performed using DAX  
+- No hidden filters or silent exclusions  
+
+### Reproducibility & Integrity Guarantees
+
+- Raw data is never altered  
+- Metrics reconcile exactly to notebook validation totals  
+- Power BI uses processed data only  
+- No silent recomputation or metric drift  
+- Full traceability from raw data to final dashboard
+
+## How to Reproduce This Analysis
+
+This project is designed to be fully reproducible and audit-safe.  
+All results shown in the notebook and Power BI dashboard are derived exclusively from processed datasets generated by the notebook pipeline.
+
+### Clone the Repository
+
+git clone https://github.com/KevinTurneri/paragon-geeks-sales-analytics.git  
+cd paragon-geeks-sales-analytics
+
+### Place Raw Data Files
+
+Place the original Square POS exports into the following directory:
+
+data/raw/  
+├── 2024 sales.csv  
+└── 2025 sales.csv  
+
+Raw files are treated as immutable source data and are never modified directly.
+
+### Run the Analysis Notebook
+
+Open the main notebook located at:
+
+notebooks/paragon_geeks_transaction_level_analysis.ipynb
+
+Run all cells top-to-bottom to:
+
+- Normalize transaction-level data across years  
+- Enforce transaction grain (1 row = 1 transaction)  
+- Parse free-text descriptions using token-based classification  
+- Classify repairs, services, accessories, and retail activity  
+- Apply documentation coverage flags  
+- Validate all transaction counts and revenue totals  
+- Export audit-safe datasets to the data/processed directory  
+
+### Generated Outputs
+
+After execution, the following locked datasets are created:
+
+data/processed/  
+fact_repair_service.csv  
+dim_device_type.csv  
+dim_brand.csv  
+dim_model_top25.csv  
+kpi_accessory.csv  
+price_tier_totals.csv  
+documentation_share_by_price_tier.csv  
+hourly_performance.csv  
+dow_performance.csv  
+monthly_performance.csv  
+
+These files serve as the single source of truth for all reporting.
+
+### Open the Power BI Dashboard
+
+Open the Power BI file located at:
+
+powerbi/Paragon_Geeks_Executive_Dashboard.pbix
+
+- Dashboard connects only to data/processed  
+- No Power Query transformations  
+- All calculations performed using DAX  
+- No hidden filters or silent exclusions  
+
+### Reproducibility & Integrity Guarantees
+
+- Raw data is never altered  
+- Metrics reconcile exactly to notebook validation totals  
+- Power BI uses processed data only  
+- No silent recomputation or metric drift  
+- Full traceability from raw data to final dashboard
+
 
 ## Dashboard Preview
 
@@ -452,6 +493,8 @@ All visuals are generated exclusively from audit-safe processed datasets.
 
 ### Operational Timing
 ![Operational Timing](paragon-geeks-sales-analytics/images/operational_timing.png)
+
+
 
 
 
