@@ -435,14 +435,23 @@ All calculations are performed using DAX measures to preserve audit integrity.
 
 ## Dashboard Preview
 
-Below are selected previews from the executive Power BI dashboard.
+Below are selected previews from the executive Power BI dashboard.  
 All visuals are generated exclusively from audit-safe processed datasets.
 
-![Executive Overview](images/executive_overview.png)
-![Documentation Coverage](images/documentation_coverage.png)
-![Documented Operations](images/documented_operations.png)
-![Retail Performance](images/retail_performance.png)
-![Operational Timing](images/operational_timing.png)
+### Executive Overview
+![Executive Overview](paragon-geeks-sales-analytics/images/executive_overview.png)
+
+### Documentation Coverage
+![Documentation Coverage](paragon-geeks-sales-analytics/images/documentation_coverage.png)
+
+### Documented Operations
+![Documented Operations](paragon-geeks-sales-analytics/images/documented_operations.png)
+
+### Retail Performance
+![Retail Performance](paragon-geeks-sales-analytics/images/retail_performance.png)
+
+### Operational Timing
+![Operational Timing](paragon-geeks-sales-analytics/images/operational_timing.png)
 
 
 
