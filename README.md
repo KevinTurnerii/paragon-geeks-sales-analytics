@@ -1,5 +1,6 @@
 
-# Paragon Geeks — Transaction-Level Sales & Operations Analytics
+
+# Paragon Geeks — Transaction-Level Sales & Operations Analytics (Square POS)
 
 > **TL;DR:** Real-world transaction-level analytics using live Square POS data.  
 > Built an audit-safe **Python → Power BI** pipeline to quantify documentation risk, identify revenue drivers, analyze pricing behavior, and optimize operations for a multi-location electronics repair business.
