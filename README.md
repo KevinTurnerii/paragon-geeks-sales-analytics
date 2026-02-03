@@ -15,6 +15,7 @@ By enforcing transaction-level consistency and audit-safe processing, the analys
 
 This project is representative of work performed in analytics roles spanning retail operations, business intelligence, data engineering, and operational reporting.
 
+**Tools:** Python (Pandas, NumPy), Power BI (DAX), Square POS exports
 
 ---
 
