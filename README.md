@@ -2,20 +2,41 @@
 
 # Paragon Geeks — Transaction-Level Sales & Operations Analytics (Square POS)
 
-> **TL;DR:** Real-world transaction-level analytics using live Square POS data.  
-> Built an audit-safe **Python → Power BI** pipeline to quantify documentation risk, identify revenue drivers, analyze pricing behavior, and optimize operations for a multi-location electronics repair business.
+## TL;DR
+
+Built an audit-safe, transaction-level analytics pipeline on live Square POS data for a multi-location electronics repair business.
+
+Identified $107K in undocumented revenue exposure, pricing-tier documentation bias, and peak-hour operational concentration to support governance improvement, pricing discipline, and staffing optimization.
+
+Tools: Python (Pandas, NumPy), Power BI (DAX), Square POS exports
+
+## Impact Snapshot
+
+- Reconciled 100% of revenue to transaction-grain source data  
+- Identified 40.9% undocumented revenue exposure ($107K)  
+- Reduced ambiguity in service categorization via token-based parsing  
+- Created audit-safe fact/dimension architecture for BI reporting  
+- Built executive dashboard used for operational decision support  
 
 ---
 
 ## Executive Summary
 
-This project analyzes ~1,900 real-world Square POS transactions to quantify documentation risk, identify revenue drivers, and surface operational inefficiencies in a multi-location electronics repair business.
+This project delivers a production-grade operational intelligence system built on ~1,900 real-world Square POS transactions across two retail locations.
 
-By enforcing transaction-level consistency and audit-safe processing, the analysis reveals that ~41% of revenue lacks sufficient documentation, with risk concentrated in mid-price repairs. The final Power BI dashboard delivers executive-ready insights for pricing discipline, staffing optimization, and operational governance.
+The objective was to transform inconsistent, free-text POS exports into an audit-safe, transaction-grain analytics framework capable of supporting executive decision-making.
 
-This project is representative of work performed in analytics roles spanning retail operations, business intelligence, data engineering, and operational reporting.
+Key Outcomes:
 
-**Tools:** Python (Pandas, NumPy), Power BI (DAX), Square POS exports
+- Analyzed $262,919.10 in total revenue across 1,922 transactions
+- Identified $107,653.50 (40.9%) in undocumented revenue exposure
+- Revealed behavioral documentation bias concentrated in mid-price repair tiers
+- Isolated peak operational windows (11AM–3PM) for staffing optimization
+- Quantified accessory bundle performance vs standalone retail
+
+The final system enforces strict transaction-level integrity (1 row = 1 transaction), prevents silent metric drift, and feeds an executive-ready Power BI dashboard built exclusively on validated outputs.
+
+This project reflects real-world analytics challenges in retail and service operations, where imperfect data must be governed, normalized, and reconciled before strategic insight is possible.
 
 ---
 
@@ -29,11 +50,17 @@ The objective was to transform raw, inconsistent point-of-sale exports into **au
 
 ## Why This Project Matters
 
-Unlike synthetic or classroom datasets, this project uses real operational POS data with incomplete documentation, inconsistent text, refunds, bundles, and human error.
+Unlike synthetic datasets, this analysis operates on real operational POS data containing incomplete documentation, free-text inconsistencies, refunds, bundled services, and human error.
 
-The analysis demonstrates how analytics must adapt to imperfect business data — not the other way around — while still producing executive-grade, auditable insights.
+The project demonstrates the ability to:
 
-This mirrors the type of data challenges faced in real retail, service, and operations analytics roles.
+- Govern imperfect business data without distorting reality
+- Enforce metric integrity across multi-year exports
+- Quantify financial reporting risk
+- Extract operational intelligence from unstructured transaction text
+
+This mirrors real enterprise analytics environments where data discipline, governance, and traceability matter as much as modeling accuracy.
+
 
 ### Final Outputs
 - A fully documented analytics notebook  
@@ -156,6 +183,8 @@ This analysis produced clear, executive-level insights by enforcing transaction-
 - **59.1%** of revenue is fully documented (**$155,265.60**)
 - **40.9%** of revenue (**$107,653.50**) remains undocumented  
 - Documentation gaps represent a material reporting and audit risk  
+
+Note: Documentation % differs between transaction count (50.36%) and revenue share (59.1%) due to higher-value transactions being more consistently documented.
 
 ### Repair & Service Mix
 - Screen repairs dominate operations, generating over **$106K** in documented revenue across **600+ transactions**
