@@ -4,11 +4,13 @@
 
 ## TL;DR
 
-Built an audit-safe, transaction-level analytics pipeline on live Square POS data for a multi-location electronics repair business.
+Built an audit-safe, transaction-grain analytics system on live Square POS data for a multi-location electronics repair business.
 
-Identified $107K in undocumented revenue exposure, pricing-tier documentation bias, and peak-hour operational concentration to support governance improvement, pricing discipline, and staffing optimization.
+**Tools:** Python (pandas, numpy, scikit-learn for n-gram feature extraction), Rule-Based NLP Feature Engineering, Jupyter Notebook, Power BI (DAX-only modeling), GitHub, Square POS exports
 
-Tools: Python (Pandas, NumPy), Power BI (DAX), Square POS exports
+### Professional Focus Areas
+
+Data Engineering | Operational Analytics | Revenue Governance | Business Intelligence | Retail Operations Analysis | Documentation Risk Assessment
 
 ## Impact Snapshot
 
@@ -73,8 +75,11 @@ This mirrors real enterprise analytics environments where data discipline, gover
 - [Business Problem](#business-problem)
 - [Data Source](#data-source)
 - [Methodology](#methodology)
+- [Technical Architecture](#technical-architecture)
+- [Data Validation & Controls](#data-validation--controls)
 - [Skills Demonstrated](#-skills-demonstrated)
 - [Key Insights](#key-insights)
+- [Strategic Business Implications](#strategic-business-implications)
 - [Power BI Dashboard Preview](#power-bi-dashboard-preview)
 - [Repository Structure](#repository-structure--data-pipeline-overview)
 - [Data Pipeline Overview](#data-pipeline-overview)
@@ -125,8 +130,9 @@ The analytics pipeline follows a strict, audit-safe methodology designed to prev
 ### Core Steps
 - Ingestion and normalization of multiple Square export formats  
 - Enforcement of transaction grain (**1 row = 1 transaction**)  
-- Explicit separation of documented vs undocumented transactions  
-- Token-based parsing of free-text descriptions to extract:
+- Explicit separation of documented vs undocumented transactions
+- Bi-gram and tri-gram frequency analysis (CountVectorizer) used to empirically derive dominant repair language patterns 
+- Rule-based semantic feature engineering applied to unstructured POS transaction text to extract:
   - Repair vs retail classification  
   - Device type, brand, and model  
   - Service categories and complexity indicators  
@@ -141,6 +147,57 @@ A documented-only baseline snapshot was locked prior to refinement to preserve r
 
 ---
 
+## Technical Architecture
+
+The analytical system follows a controlled raw → processed → visualization architecture.
+
+### Architecture Design
+
+Raw Layer (Immutable)
+- Square POS exports (2024, 2025)
+- Stored in `data/raw/`
+- Never modified
+
+Processing Layer (Python)
+- Transaction normalization
+- Revenue reconciliation
+- Refund handling
+- Free-text semantic parsing
+- Documentation classification
+- Price tier segmentation
+- Time-based feature engineering
+
+Output Layer (Locked Tables)
+- Transaction-grain fact table
+- Device / brand / model dimensions
+- Price tier aggregates
+- Documentation share tables
+- Time-performance tables
+
+Visualization Layer (Power BI)
+- DAX-only calculations
+- No Power Query transformations
+- No direct raw data ingestion
+- Connected exclusively to processed outputs
+
+This layered design ensures auditability, traceability, and metric integrity.
+
+---
+
+## Data Validation & Controls
+
+To prevent silent metric drift and ensure financial accuracy, the following validation checkpoints were implemented:
+
+- Total revenue reconciliation against original POS exports
+- Transaction count validation before and after cleaning
+- Refund normalization checks
+- Documented-only baseline snapshot lock
+- Cross-validation between Python outputs and Power BI totals
+- No dashboard-side transformations permitted
+
+Every KPI shown in the dashboard reconciles exactly to transaction-level validated totals.
+---
+
 ## 💼 Skills Demonstrated
 
 ### Data Engineering & ETL
@@ -149,7 +206,7 @@ A documented-only baseline snapshot was locked prior to refinement to preserve r
 - Designed reproducible pipelines with locked outputs  
 
 ### Data Cleaning & Feature Engineering
-- Token-based parsing of unstructured POS descriptions  
+- NLP-assisted token extraction (bi-gram / tri-gram frequency analysis) combined with rule-based semantic classification
 - Device, brand, model, service, and complexity extraction from free text  
 - Explicit handling of refunds, bundles, partial payments, and multi-repair jobs  
 
@@ -207,6 +264,20 @@ Note: Documentation % differs between transaction count (50.36%) and revenue sha
 - Standalone accessory sales contribute limited revenue relative to repair-attached sales  
 
 All insights reconcile exactly to validated notebook outputs.
+
+---
+
+## Strategic Business Implications
+
+If implemented operationally, this framework enables:
+
+- Reduction of undocumented revenue exposure through documentation policy enforcement
+- Improved pricing discipline in mid-tier repair ranges
+- Staffing optimization aligned with peak operational windows
+- Accessory attach-rate strategy improvements
+- Improved audit defensibility and financial reporting clarity
+
+This system converts unstructured POS exports into governed, decision-ready operational intelligence.
 
 ---
 
@@ -405,18 +476,33 @@ Below are selected previews from the executive Power BI dashboard.
 All visuals are generated exclusively from audit-safe processed datasets.
 
 ### Executive Overview
-![Executive Overview](paragon-geeks-sales-analytics/images/executive_overview.png)
+![Executive Overview](paragon-geeks-sales-analytics/images/01_Executive_Overview.png)
 
 ### Documentation Coverage
-![Documentation Coverage](paragon-geeks-sales-analytics/images/documentation_coverage.png)
+![Documentation Coverage](paragon-geeks-sales-analytics/images/02_Documentation_Quality.png)
 
 ### Documented Operations
-![Documented Operations](paragon-geeks-sales-analytics/images/documented_operations.png)
+![Documented Operations](paragon-geeks-sales-analytics/images/03_Documented_Revenue_Breakdown.png)
 
 ### Retail Performance
-![Retail Performance](paragon-geeks-sales-analytics/images/retail_performance.png)
+![Retail Performance](paragon-geeks-sales-analytics/images/04_Retail_Performance.png)
 
 ### Operational Timing
-![Operational Timing](paragon-geeks-sales-analytics/images/operational_timing.png)
+![Operational Timing](paragon-geeks-sales-analytics/images/05_Operational_Performance_Timing.png)
+
+---
+
+This project reflects advanced business analytics, data engineering, and governance principles aligned with enterprise-level MIS and Data Analytics practices.
+
+## Governance Statement
+
+This project was built under enterprise-style analytical controls:
+
+- Revenue truth is preserved — no transactions discarded for cleanliness  
+- Documentation gaps are measured, not hidden  
+- All KPIs reconcile exactly to transaction-level validation outputs  
+- No silent filtering, recomputation, or dashboard-side transformation  
+
+This ensures financial accuracy, reproducibility, and audit traceability from raw POS export to executive dashboard.
 
  
