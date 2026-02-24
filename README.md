@@ -2,43 +2,31 @@
 
 # Paragon Geeks — Transaction-Level Sales & Operations Analytics (Square POS)
 
-## TL;DR
+## Executive Overview
 
-Built an audit-safe, transaction-grain analytics system on live Square POS data for a multi-location electronics repair business.
+While managing operations across two retail electronics repair locations, I designed and implemented a transaction-level operational intelligence system analyzing **$262,919.10 in revenue across 1,922 live POS transactions**.
 
-**Tools:** Python (pandas, numpy, scikit-learn for n-gram feature extraction), Rule-Based NLP Feature Engineering, Jupyter Notebook, Power BI (DAX-only modeling), GitHub, Square POS exports
+This project transforms unstructured Square POS exports into a governed, audit-aligned analytics framework capable of supporting executive decision-making in a real-world retail environment.
 
-### Professional Focus Areas
+## My Role
 
-Data Engineering | Operational Analytics | Revenue Governance | Business Intelligence | Retail Operations Analysis | Documentation Risk Assessment
+- Operations Manager overseeing two retail locations
+- Managed technician workflow, customer intake, and revenue tracking
+- Initiated and led internal analytics initiative to quantify revenue integrity, documentation risk, and operational performance
+- Designed and implemented full raw → processed → dashboard pipeline independently
 
-## Impact Snapshot
+### Core Outcomes
 
-- Reconciled 100% of revenue to transaction-grain source data  
-- Identified 40.9% undocumented revenue exposure ($107K)  
-- Reduced ambiguity in service categorization via token-based parsing  
-- Created audit-safe fact/dimension architecture for BI reporting  
-- Built executive dashboard used for operational decision support  
+- Reconciled 100% of revenue to transaction-level source exports  
+- Quantified **$107,653.50 (40.9%) in undocumented revenue exposure**  
+- Identified documentation discipline gaps concentrated in $100–$200 repair tiers  
+- Isolated peak operational window (11 AM–3 PM) for staffing optimization  
+- Measured 4× revenue lift from accessory bundles vs standalone sales  
+- Built executive Power BI dashboard driven exclusively by validated outputs  
 
----
+**Tools:** Python (pandas, numpy), Rule-Based NLP Feature Engineering, Jupyter Notebook, Power BI (DAX), GitHub, Square POS exports  
 
-## Executive Summary
-
-This project delivers a production-grade operational intelligence system built on ~1,900 real-world Square POS transactions across two retail locations.
-
-The objective was to transform inconsistent, free-text POS exports into an audit-safe, transaction-grain analytics framework capable of supporting executive decision-making.
-
-Key Outcomes:
-
-- Analyzed $262,919.10 in total revenue across 1,922 transactions
-- Identified $107,653.50 (40.9%) in undocumented revenue exposure
-- Revealed behavioral documentation bias concentrated in mid-price repair tiers
-- Isolated peak operational windows (11AM–3PM) for staffing optimization
-- Quantified accessory bundle performance vs standalone retail
-
-The final system enforces strict transaction-level integrity (1 row = 1 transaction), prevents silent metric drift, and feeds an executive-ready Power BI dashboard built exclusively on validated outputs.
-
-This project reflects real-world analytics challenges in retail and service operations, where imperfect data must be governed, normalized, and reconciled before strategic insight is possible.
+**Focus Areas:** Operational Analytics | Revenue Governance | Data Engineering | Business Intelligence | Retail Intelligence
 
 ---
 
@@ -52,16 +40,16 @@ The objective was to transform raw, inconsistent point-of-sale exports into **au
 
 ## Why This Project Matters
 
-Unlike synthetic datasets, this analysis operates on real operational POS data containing incomplete documentation, free-text inconsistencies, refunds, bundled services, and human error.
+Retail POS data is often inconsistent, free-text heavy, and operationally messy. 
 
-The project demonstrates the ability to:
+This project demonstrates the ability to:
 
-- Govern imperfect business data without distorting reality
-- Enforce metric integrity across multi-year exports
-- Quantify financial reporting risk
-- Extract operational intelligence from unstructured transaction text
+- Govern imperfect business data without distorting reality  
+- Quantify financial reporting risk tied to documentation behavior  
+- Normalize unstructured transaction text into structured analytical dimensions  
+- Translate operational data into executive-level decision intelligence  
 
-This mirrors real enterprise analytics environments where data discipline, governance, and traceability matter as much as modeling accuracy.
+This mirrors real enterprise analytics environments where data integrity, reproducibility, and business alignment are critical.
 
 
 ### Final Outputs
@@ -140,8 +128,7 @@ The analytics pipeline follows a strict, audit-safe methodology designed to prev
 - Validation of all aggregates against known revenue totals  
 - Export of clean, Power BI–ready datasets  
 
-All presentation tables and Power BI visuals are generated exclusively from validated, locked outputs.  
-No manual overrides or Power BI-side transformations are applied.
+All dashboard visuals are generated exclusively from validated, locked outputs.
 
 A documented-only baseline snapshot was locked prior to refinement to preserve raw operational truth and ensure all downstream transformations remained auditable.
 
@@ -180,8 +167,6 @@ Visualization Layer (Power BI)
 - No direct raw data ingestion
 - Connected exclusively to processed outputs
 
-This layered design ensures auditability, traceability, and metric integrity.
-
 ---
 
 ## Data Validation & Controls
@@ -195,7 +180,6 @@ To prevent silent metric drift and ensure financial accuracy, the following vali
 - Cross-validation between Python outputs and Power BI totals
 - No dashboard-side transformations permitted
 
-Every KPI shown in the dashboard reconciles exactly to transaction-level validated totals.
 ---
 
 ## 💼 Skills Demonstrated
@@ -494,15 +478,6 @@ All visuals are generated exclusively from audit-safe processed datasets.
 
 This project reflects advanced business analytics, data engineering, and governance principles aligned with enterprise-level MIS and Data Analytics practices.
 
-## Governance Statement
 
-This project was built under enterprise-style analytical controls:
-
-- Revenue truth is preserved — no transactions discarded for cleanliness  
-- Documentation gaps are measured, not hidden  
-- All KPIs reconcile exactly to transaction-level validation outputs  
-- No silent filtering, recomputation, or dashboard-side transformation  
-
-This ensures financial accuracy, reproducibility, and audit traceability from raw POS export to executive dashboard.
 
  
