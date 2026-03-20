@@ -6,8 +6,8 @@
 - Identified **$107,653 (40.9%) undocumented revenue exposure**
 - Built a **transaction-level, audit-safe analytics system** from raw POS data
 - Engineered a **text-to-structured data pipeline** for unstructured transactions
+- Performed **dual-layer analysis across documented (structured) and undocumented (unstructured) transactions**
 - Delivered an **executive Power BI dashboard** for real business operations
-  
 ---
 
 ## Table of Contents
@@ -22,6 +22,7 @@
 - [Why This Project Matters](#why-this-project-matters)
 - [Data Source](#data-source)
 - [Methodology](#methodology)
+- [Dual-Layer Analysis Strategy](#dual-layer-analysis-strategy)
 - [Technical Architecture](#technical-architecture)
 - [Data Validation & Controls](#data-validation--controls)
 - [Skills Demonstrated](#-skills-demonstrated)
@@ -170,6 +171,31 @@ The analytics pipeline follows a strict, audit-safe methodology designed to prev
 - Export of Power BI–ready datasets  
 
 All dashboard visuals are generated exclusively from validated outputs.
+
+---
+
+## Dual-Layer Analysis Strategy
+
+To preserve both analytical depth and financial integrity, the dataset was analyzed using a dual-layer framework that explicitly separates structured and unstructured transaction data.
+
+### Structured Analysis Layer (Documented Transactions)
+- Transactions containing usable, descriptive text  
+- Used for feature engineering, service classification, and detailed operational analysis  
+- Enabled accurate breakdown of repair mix, device distribution, pricing behavior, and bundled service patterns  
+
+### Completeness & Risk Layer (Undocumented Transactions)
+- Transactions with limited or no descriptive text  
+- Retained in full to ensure total revenue reconciliation and dataset completeness  
+- Used to quantify documentation gaps and measure financial reporting exposure  
+
+### Analytical Impact
+
+This framework ensured:
+- **Full revenue integrity (no transactions excluded from analysis)**  
+- **Reliable insight generation from structured data only**  
+- **Explicit measurement of data quality issues instead of silent omission**  
+
+By separating analytical depth from data completeness, this approach mirrors real-world enterprise analytics practices, where incomplete data must be governed without compromising financial accuracy or decision-making reliability.
 
 ---
 
@@ -322,10 +348,6 @@ paragon-geeks-sales-analytics/
 > All visuals reconcile exactly to validated notebook outputs. No Power BI-side filtering,
 > aggregation, or transformation alters source metrics.
 
-
-Below are selected previews from the executive Power BI dashboard.  
-All visuals are generated exclusively from audit-safe processed datasets.
-
 ### Executive Overview
 ![Executive Overview](paragon-geeks-sales-analytics/images/01_Executive_Overview.png)
 
@@ -346,7 +368,6 @@ All visuals are generated exclusively from audit-safe processed datasets.
 ## Final Note
 
 This project demonstrates the ability to transform messy, real-world business data into structured, audit-safe, decision-ready analytics systems aligned with enterprise data practices.
-
 
 
 
