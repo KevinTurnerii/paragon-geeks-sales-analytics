@@ -1,18 +1,23 @@
-# Paragon Geeks — Transaction-Level Sales & Operations Analytics (Square POS)
+# Paragon Geeks — Operational Intelligence & Revenue Analytics System (Square POS)
 
-## 🚀 Business Impact Snapshot
+## Business Problem
+Inconsistent, unstructured POS transaction data prevented accurate revenue tracking, operational visibility, and reliable financial reporting across multiple retail locations.
+
+## Solution
+Designed and implemented an end-to-end analytics system to transform raw Square POS exports into structured, validated datasets and executive-level dashboards.
+
+## Key Outcomes
 - Analyzed **$262,919 in revenue across 1,922 transactions**
 - Identified **$107,653 (40.9%) undocumented revenue exposure**
-- Built a **transaction-level, audit-safe analytics system** from raw POS data
+- Built a **transaction-level, audit-safe analytics system**
 - Engineered a **text-to-structured pipeline for unstructured transaction data**
-- Performed **dual-layer analysis (structured vs unstructured transactions)**
 - Delivered an **executive Power BI dashboard for operational decision-making**
 
 ---
 
-Built an end-to-end analytics system to transform unstructured Square POS transaction data into structured, audit-safe datasets and business intelligence insights.
+Built and deployed within a real multi-location electronics repair business (**Paragon Geeks**), where I manage daily operations, customer intake, and service workflows.
 
-The project converts inconsistent free-text records into standardized analytical dimensions, enabling accurate revenue analysis, operational insights, and financial risk identification.
+This project transforms unstructured transaction data into structured operational intelligence, enabling accurate analytics, financial visibility, and data-driven business decisions.
 
 ---
 
@@ -39,9 +44,9 @@ The project converts inconsistent free-text records into standardized analytical
 
 ## Executive Overview
 
-I designed and implemented a transaction-level analytics system for a multi-location electronics repair business, transforming raw Square POS exports into structured, audit-safe datasets and decision-ready insights.
+I designed and implemented a transaction-level analytics system within a real retail operations environment, transforming raw Square POS data into structured, audit-safe datasets and decision-ready insights.
 
-This project demonstrates how unstructured, inconsistent business data can be converted into reliable operational intelligence while preserving financial accuracy and real-world complexity.
+This system demonstrates how unstructured business data can be transformed into reliable operational intelligence to support revenue tracking, performance analysis, and business decision-making.
 
 ---
 
@@ -51,7 +56,7 @@ This project was executed as a complete analytics pipeline:
 
 ### Data Ingestion Layer
 - Imported raw Square POS exports across multiple formats  
-- Preserved raw data as immutable source for audit traceability  
+- Preserved raw data as an immutable source for audit traceability  
 
 ### Processing & Transformation Layer (Python)
 - Cleaned and standardized transaction records  
@@ -101,7 +106,7 @@ This enabled:
 - Reliable aggregation across inconsistent inputs  
 - Device and service-level performance analysis  
 - Identification of bundled services  
-- Accurate downstream analytics  
+- Structured datasets for downstream analytics and reporting  
 
 ---
 
@@ -119,8 +124,8 @@ This enabled:
 
 - Operations Manager overseeing two retail locations  
 - Led full analytics initiative from raw data to dashboard  
-- Designed and implemented complete **data pipeline + analytics system**  
-- Translated operational problems into measurable insights  
+- Designed and implemented a complete **data pipeline + analytics system**  
+- Translated operational challenges into measurable business insights  
 
 ---
 
@@ -130,7 +135,7 @@ This enabled:
 - Identified **$107K+ undocumented revenue exposure (40.9%)**  
 - Found documentation gaps in **$100–$200 pricing tier**  
 - Identified peak hours (**11 AM – 3 PM**)  
-- Measured **4× revenue lift from accessory bundles**  
+- Identified that accessory add-ons significantly increase average transaction value when combined with repair services  
 - Delivered **audit-safe Power BI dashboard**  
 
 ---
@@ -178,8 +183,10 @@ This enabled:
 
 - Raw Layer (immutable POS exports)  
 - Processing Layer (Python transformations)  
-- Output Layer (validated fact tables)  
+- Output Layer (validated fact tables designed for SQL-based querying)  
 - BI Layer (Power BI dashboard)  
+
+Structured outputs were designed for downstream SQL-based querying and seamless integration with business intelligence tools.
 
 ---
 
@@ -199,7 +206,7 @@ This enabled:
 - NLP & Text Processing  
 - Feature Engineering  
 - Data Cleaning & Standardization  
-- Business Analytics  
+- Business Intelligence & Analytics  
 - Power BI & Data Visualization  
 - Data Governance & Validation  
 
@@ -223,7 +230,7 @@ This enabled:
 - Peak window: 11 AM – 3 PM  
 
 ### Retail Strategy
-- Bundling drives 4× revenue increase  
+- Accessory add-ons increase average transaction value when paired with repair services  
 
 ---
 
@@ -249,6 +256,7 @@ paragon-geeks-sales-analytics/
 ├── images/
 └── README.md
 ~~~
+
 ---
 
 ## Reproducibility
@@ -264,8 +272,7 @@ paragon-geeks-sales-analytics/
 ## Dashboard Preview
 
 > **Data Integrity Note:**  
-> All visuals reconcile exactly to validated notebook outputs. No Power BI-side filtering,
-> aggregation, or transformation alters source metrics.
+> All visuals reconcile exactly to validated notebook outputs. No Power BI-side transformations alter source metrics.
 
 ### Executive Overview
 ![Executive Overview](paragon-geeks-sales-analytics/images/01_Executive_Overview.png)
